@@ -1,7 +1,7 @@
 from settings import *
 from player import Player
 from screen import Screen
-# from client import Client
+from client import Client
 import pygame as pg
 import sys
 
@@ -14,19 +14,19 @@ class Game:
   def new_game(self):
     self.player = Player(self)
     self.board = Screen(self)
-    # self.client = Client(self)
+    self.client = Client(self)
 
   def update(self):
-    # self.player.update()
-    # self.client.update()
+    self.player.update()
+    self.client.update()
     pg.display.set_caption(f'Casablanca Monopoly : {self.clock.get_fps() :.1f}')
     pg.display.flip()
 
   def draw(self):
     self.screen.fill('black')
-    # self.player.draw()
+    self.player.draw()
     self.board.draw()
-    # self.client.draw()
+    self.client.draw()
 
   def check_event(self):
     keys = pg.key.get_pressed()
