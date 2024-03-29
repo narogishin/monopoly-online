@@ -1,6 +1,6 @@
 import socket, pickle, time
 
-SERVER_IP = "192.168.1.9"
+SERVER_IP = "192.168.1.16"
 PORT = 12345
 HEADER= 128
 FORMAT = 'utf-8'
@@ -41,8 +41,8 @@ def run_server() -> None:
     client_data, client_address = server.recvfrom(HEADER)
     handle_client(client_data, data, client_address)
     msg = pickle.dumps(data)
-    # for _ in range(len(data)):
-    send_msg(msg, client_address)
+    for _ in range(len(data)):
+      send_msg(msg, client_address)
 
 
 run_server()

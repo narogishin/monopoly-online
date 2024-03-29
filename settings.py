@@ -8,7 +8,7 @@ colors = ['red', 'green', 'blue', 'cyan', 'yellow', 'magenta', 'white']
 f = lambda txt, idx: txt.split(',')[idx]
 
 # SOCKETS
-SERVER_IP = "192.168.1.9"
+SERVER_IP = "192.168.1.16"
 PORT = 12345
 HEADER= 128
 FORMAT = 'utf-8'
