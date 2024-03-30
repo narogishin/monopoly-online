@@ -1,7 +1,7 @@
 import pygame as pg
 from random import randint
 from settings import *
-import time
+from time import sleep
 
 class Player:
   def __init__(self, game) -> None:
@@ -36,51 +36,22 @@ class Player:
   def move(self, x, y):
     self.mouvement(self.x, self.y, (x, y))
 
-  def check_mouse_click(self, index: int):
-    right_click_triggered = False
-    for event in pg.event.get():
-      if event.type == pg.MOUSEBUTTONDOWN:
-        if event.button == 3 and not right_click_triggered:  # Check for right mouse button click
-          self.current_index += index
-          self.current_index %= 40
-          n, m = positions[self.current_index]
-          while (self.x != 25 + 50*n) and (self.y != 25 + 50*m):
-            print("current index", self.current_index)
-            # print("n and m : ", n, m)
-            # print("x and y : ", self.x, self.y)
-            self.move(25 + 50*n, 25 + 50*m)
-          right_click_triggered = True
-      elif event.type == pg.MOUSEBUTTONUP:
-        if event.button == 3:
-          right_click_triggered = False
-
   def play(self):
-    click = pg.mouse.get_pressed()[0]
+    click = pg.key.get_pressed()[pg.K_SPACE]
     if click:
       index = randint(1, 6)
-      print("index : ", index)
-    # self.check_right_click(index)
-    # if click:
+      sleep(0.5)
       
     try:
       self.current_index += index
       self.current_index %= 40
-      print("position : ", positions[self.current_index])
-      print("CI : ", self.current_index)
-      print("I : ", index)
+      print(self.current_index, index)
     except UnboundLocalError:
       self.current_index += 0
 
     n, m = positions[self.current_index]
-    # # if (self.x != 25 + 50*n) and (self.y != 25 + 50*m):
-    # print("n and m : ", n, m)
-    # print("x and y : ", self.x, self.y)
     self.move(25 + 50*n, 25 + 50*m)
-    #   print("current index : ", self.current_index)
     
-    #   print(self.x, self.y)
-    
-
   def update(self):
     self.play()
     

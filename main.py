@@ -14,11 +14,11 @@ class Game:
   def new_game(self):
     self.player = Player(self)
     self.board = Screen(self)
-    # self.client = Client(self)
+    self.client = Client(self)
 
   def update(self):
     self.player.update()
-    # self.client.update()
+    self.client.update()
     pg.display.set_caption(f'Moroccan Monopoly : {self.clock.get_fps() :.1f}')
     pg.display.flip()
 
@@ -26,13 +26,13 @@ class Game:
     self.screen.fill('black')
     self.board.draw()
     self.player.draw()
-    # self.client.draw()
+    self.client.draw()
 
   def check_event(self):
     keys = pg.key.get_pressed()
     for event in pg.event.get():
       if event.type == pg.QUIT or keys[pg.K_ESCAPE]:
-        # self.client.disconnect() # maybe we don't need to do it since sys.exit
+        self.client.disconnect() # maybe we don't need to do it since sys.exit
         pg.quit()
         sys.exit()
 
