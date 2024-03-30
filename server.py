@@ -1,4 +1,4 @@
-import socket, pickle, time
+import socket, pickle
 
 SERVER_IP = "192.168.1.16"
 PORT = 12345
@@ -6,7 +6,6 @@ HEADER= 128
 FORMAT = 'utf-8'
 ADDR = (SERVER_IP, PORT)
 DM = "@disconnect"
-t = 0.00001
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server.bind(ADDR)
