@@ -24,8 +24,8 @@ class Screen:
                   for i in range(len(self.board[1]))]
     
     [pg.draw.rect(self.game.screen, 'darkgray', 
-                  (i*100*RATIO, 9*100*RATIO, 100*RATIO, 100*RATIO), 2)
-                  for i in range(len(self.board[2]))]
+                  (i*100*RATIO, 10*100*RATIO, 100*RATIO, 100*RATIO), 2)
+                  for i in range(len(self.board[2])+1)]
     
     [pg.draw.rect(self.game.screen, 'darkgray', 
                   (0*100*RATIO, i*100*RATIO, 100*RATIO, 100*RATIO), 2)

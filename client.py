@@ -1,4 +1,4 @@
-import socket, pickle, time
+import socket, pickle
 from settings import *
 import pygame as pg
 

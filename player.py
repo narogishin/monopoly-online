@@ -10,6 +10,7 @@ class Player:
     self.color = colors[randint(0, len(colors)-1)]
     self.players_list = []
     self.x, self.y = 25, 25
+    self.n, self.m = 0, 0
     self.size = 20
 
   def check_screen_collision(self, dx, dy):
@@ -21,31 +22,34 @@ class Player:
 
   def mouvement(self, x: int, y: int, setpoint: tuple):
     dx, dy = 0, 0
-    # keys = pg.key.get_pressed()
-    # if not setpoint:
-    if x < setpoint[0] and y == setpoint[1]:
-      dx += 1
-    if x == setpoint[0] and y <= setpoint[1]:
-      dy += 1
-    if y == setpoint[1]:
-      dx -= 1
-    if x == setpoint[0] and y <= setpoint[1]:
-      dy -= 1
-    self.check_screen_collision(dx, dy)
-    # else:
-    #   dx += 0
-    #   dy += 0
+    if (x, y) != setpoint:
+      if x < 550 - 25 and y == 25:
+        dx += 1
+      if x == 550 - 25 and y <= 500 - 25:
+        dy += 1
+      if y == 500 - 25:
+        dx -= 1
+      if x == 25 and y <= 500 - 25:
+        dy -= 1
+      self.check_screen_collision(dx, dy)
 
   def move(self, x, y):
-    print(self.x, self.y)
-    # if x != self.x and y != self.y:
     self.mouvement(self.x, self.y, (x, y))
-    # else:
-    # self.mouvement(self.x, self.y, x - self.x and y - self.y)
-    # time.sleep(2)
+
+  def play(self):
+    click = pg.mouse.get_pressed()[0]
+    if click:
+      n, m = randint(0, 10), randint(0, 10)
+      if n == 0 or n == 10:
+        m = randint(0, 10)
+      elif m == 0 or m == 9:
+        n = randint(0, 10)
+      # time.sleep(1)
+      print(n, m)
+      self.move(25 + 50*n, 25 + 50*m)
 
   def update(self):
-    self.move(525, 525)
+    self.play()
     
   def draw(self):
     pg.draw.circle(self.game.screen, self.color, (self.x, self.y), self.size)

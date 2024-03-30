@@ -19,7 +19,7 @@ class Game:
   def update(self):
     self.player.update()
     # self.client.update()
-    pg.display.set_caption(f'Casablanca Monopoly : {self.clock.get_fps() :.1f}')
+    pg.display.set_caption(f'Moroccan Monopoly : {self.clock.get_fps() :.1f}')
     pg.display.flip()
 
   def draw(self):
