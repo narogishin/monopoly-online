@@ -12,7 +12,6 @@ class Player:
     self.x, self.y = 25, 25
     self.current_index = 0
     self.size = 20
-    self.alpha = True
 
   def check_screen_collision(self, dx, dy):
     # solved by chat gpt
@@ -37,7 +36,7 @@ class Player:
   def move(self, x, y):
     self.mouvement(self.x, self.y, (x, y))
 
-  def check_right_click(self, index: int):
+  def check_mouse_click(self, index: int):
     right_click_triggered = False
     for event in pg.event.get():
       if event.type == pg.MOUSEBUTTONDOWN:
@@ -57,19 +56,30 @@ class Player:
 
   def play(self):
     click = pg.mouse.get_pressed()[0]
-    index = randint(1, 6)
-    print("index : ", index)
-    # self.check_right_click(index)
     if click:
+      index = randint(1, 6)
+      print("index : ", index)
+    # self.check_right_click(index)
+    # if click:
+      
+    try:
       self.current_index += index
       self.current_index %= 40
-      n, m = positions[self.current_index]
-      # while (self.x != 25 + 50*n) and (self.y != 25 + 50*m):
-      print("current index : ", self.current_index)
-      print("n and m : ", n, m)
-      # print("x and y : ", self.x, self.y)
-      self.move(25 + 50*n, 25 + 50*m)
-      self.alpha = not self.alpha
+      print("position : ", positions[self.current_index])
+      print("CI : ", self.current_index)
+      print("I : ", index)
+    except UnboundLocalError:
+      self.current_index += 0
+
+    n, m = positions[self.current_index]
+    # # if (self.x != 25 + 50*n) and (self.y != 25 + 50*m):
+    # print("n and m : ", n, m)
+    # print("x and y : ", self.x, self.y)
+    self.move(25 + 50*n, 25 + 50*m)
+    #   print("current index : ", self.current_index)
+    
+    #   print(self.x, self.y)
+    
 
   def update(self):
     self.play()
