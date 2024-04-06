@@ -11,16 +11,19 @@ class Client:
     self.client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
   def update(self):
-    print('sending coordinates')
+    # print('sending coordinates')
     self.send_coordinates()
 
   def draw(self):
     msg = self.recv_message()
-    print(msg)
-    for player, data in msg.items():
-      if player != self.game.player.name:
-        x, y, color = data.split(',')
-        pg.draw.circle(self.game.screen, color, (int(x), int(y)), self.game.player.size)
+    # print(msg)
+    # for player, data in msg.items():
+    #   if player != self.game.player.name:
+    #     x, y, color = data.split(',')
+    #     pg.draw.circle(self.game.screen, color, (int(x), int(y)), self.game.player.size)
+
+    [pg.draw.circle(self.game.screen, f(data, 2), (int(f(data, 0)), int(f(data, 1))), self.game.player.size) 
+     for player, data in msg.items() if player != self.game.player.name]
 
   def send_msg(self, msg: bytes):
     msg += b' ' * (HEADER - len(msg))
@@ -31,13 +34,10 @@ class Client:
     self.send_msg(pickle.dumps(self.data))
 
   def recv_message(self) -> dict:
-    print('receiving from server')
-    try:
-      msg = pickle.loads(self.client.recvfrom(HEADER)[0])
-      if msg:
-        return msg
-    except Exception as e:
-      print(e)
+    # print('receiving from server')
+    msg = pickle.loads(self.client.recvfrom(HEADER)[0])
+    if msg:
+      return msg
 
   def disconnect(self):
     self.send_msg(pickle.dumps(f'{DM}:{self.game.player.name}'))

@@ -13,10 +13,10 @@ positions = {
        29: (1,10), 30: (0,10), 31: (0,9), 32: (0,8), 33: (0,7), 34: (0,6), 35: (0,5),
          36: (0,4), 37: (0,3), 38: (0,2), 39: (0,1)
          }
-# f = lambda txt, idx: txt.split(',')[idx]
+f = lambda txt, idx: txt.split(',')[idx]
 
 # SOCKETS
-SERVER_IP = "192.168.1.16"
+SERVER_IP = "192.168.1.70"
 PORT = 12345
 HEADER= 128
 FORMAT = 'utf-8'
