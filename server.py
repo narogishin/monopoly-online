@@ -19,7 +19,7 @@ def update_data(msg: str, data: dict):
   data[client_data[2]] = ','.join([client_data[0], client_data[1], client_data[3]])
   return client_data[2]
 
-def handle_client(client_data: bytes, data: dict, client_adress) -> None:
+def handle_client(client_data: bytes, data: dict) -> None:
   msg = pickle.loads(client_data)
   if msg:
     msg = msg.split(' ')[0]
@@ -38,7 +38,7 @@ def run_server() -> None:
   print('STARTING THE SERVER...')
   while True:
     client_data, client_address = server.recvfrom(HEADER)
-    handle_client(client_data, data, client_address)
+    handle_client(client_data, data)
     msg = pickle.dumps(data)
     for _ in range(len(data)):
       send_msg(msg, client_address)

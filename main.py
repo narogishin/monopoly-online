@@ -1,4 +1,5 @@
 from settings import *
+from cities import *
 from player import Player
 from screen import Screen
 from client import Client

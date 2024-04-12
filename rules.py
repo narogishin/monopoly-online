@@ -1,24 +1,3 @@
-
-
-class city:
-  def __init__(self, game, name: str, indexes: list, rents: int) -> None:
-    self.game = game
-    self.name = name
-    self.indexes = indexes
-    self.rents = rents
-    self.owners = ['' for _ in range(rents)]
-    self.right_to_build = False
-
-  def check_ownership(self, player):
-    condition = self.owners == [player for _ in range(self.rents)]
-    if condition:
-      self.right_to_build = True
-    return condition
-
-  
-
-
-
 def start():
   '''collect as you pass'''
   pass
