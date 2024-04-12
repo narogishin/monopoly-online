@@ -1,6 +1,6 @@
 class City:
-  def __init__(self, game, name: str, indexes: list) -> None:
-    self.game = game
+  def __init__(self, player, name: str, indexes: list) -> None:
+    self.player = player
     self.name = name
     self.indexes = indexes
     self.owners = ['' for _ in range(len(self.indexes))]
@@ -14,80 +14,33 @@ class City:
   
   def check_position(self, position: int) -> bool:
     return True if position in self.indexes else False
+  
+  def offer(self):
+    player_position = self.player.current_index
+    if self.check_position(player_position):
+      '''Offer the player a choice between : buying the land OR rolling the dice/End turn'''
+      self.owners[self.indexes.index(player_position)] = self.player.name
+      print(f"Choice Offering, in {self.name}")
 
-  def update(self):
-    self.check_ownership(self.game.player.name)
+  def update(self, player_name: str):
+    self.check_ownership(player_name)
+    self.offer()
 
 
 class Cities(City):
-  pass
+  def __init__(self, player) -> None:
+    self.player = player
+    self.cities_list = []
+    add_city = self.add_city
 
+    add_city(City(player, name='fes', indexes=[1, 3]))
+    add_city(City(player, name='marrakech', indexes=[6, 8, 9]))
+    add_city(City(player, name='chefchaouen', indexes=[11, 13, 14]))
+    add_city(City(player, name='tetouan', indexes=[16, 18, 19]))
 
-class Chefchaouen(City):
-  def __init__(self, game, name: str, indexes: list) -> None:
-    super().__init__(game, name, indexes)
-    self.name = 'chefchaouen'
-    self.indexes = [11, 13, 14]
-
-
-  def update(self):
-    super().update()
-    self.offer()
-
-  def offer(self):
-    player_position = self.game.player.current_index
-    if self.check_position(player_position):
-      '''Offer the player a choice between : buying the land OR rolling the dice/End turn'''
-      print(f"Choice Offering, in {self.name}")
-  
-  
-class Fes(City):
-  def __init__(self, game, name: str, indexes: list) -> None:
-    super().__init__(game, name, indexes)
-    self.name = 'fes'
-    self.indexes = [1, 3]
+  def add_city(self, city):
+    self.cities_list.append(city)
 
   def update(self):
-    super().update()
-    self.offer()
-
-  def offer(self):
-    player_position = self.game.player.current_index
-    if self.check_position(player_position):
-      '''Offer the player a choice between : buying the land OR rolling the dice/End turn'''
-      print(f"Choice Offering, in {self.name}")
-  
-
-class Marrakech(City):
-  def __init__(self, game, name: str, indexes: list) -> None:
-    super().__init__(game, name, indexes)
-    self.name = 'marrakech'
-    self.indexes = [16, 18, 19]
-
-  def update(self):
-    super().update()
-    self.offer()
-
-  def offer(self):
-    player_position = self.game.player.current_index
-    if self.check_position(player_position):
-      '''Offer the player a choice between : buying the land OR rolling the dice/End turn'''
-      print(f"Choice Offering, in {self.name}")
-
-
-class Tetouan(City):
-  def __init__(self, game, name: str, indexes: list) -> None:
-    super().__init__(game, name, indexes)
-    self.name = 'marrakech'
-    self.indexes = [16, 18, 19]
-
-  def update(self):
-    super().update()
-    self.offer()
-
-  def offer(self):
-    player_position = self.game.player.current_index
-    if self.check_position(player_position):
-      '''Offer the player a choice between : buying the land OR rolling the dice/End turn'''
-      print(f"Choice Offering, in {self.name}")
-
+    player_name = self.player.name
+    [city.update(player_name) for city in self.cities_list]

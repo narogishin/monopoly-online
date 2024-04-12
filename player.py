@@ -1,5 +1,6 @@
 import pygame as pg
 from random import randint
+from cities import Cities
 from settings import *
 from time import sleep
 
@@ -12,6 +13,8 @@ class Player:
     self.x, self.y = 25, 25
     self.current_index = 0
     self.size = 20
+
+    self.cities = Cities(self)
 
   def check_screen_collision(self, dx, dy):
     # solved by chat gpt
@@ -45,7 +48,9 @@ class Player:
     try:
       self.current_index += index
       self.current_index %= 40
+      self.cities.update()
       print(self.current_index, index)
+
     except UnboundLocalError:
       self.current_index += 0
 
