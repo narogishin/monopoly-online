@@ -18,7 +18,7 @@ class City:
   def offer(self):
     player_position = self.player.current_index
     if self.check_position(player_position):
-      '''Offer the player a choice between : buying the land OR rolling the dice/End turn'''
+      '''Offer the player a choice between : buying the land OR rolling the dice OR End turn'''
       self.owners[self.indexes.index(player_position)] = self.player.name
       print(f"Choice Offering, in {self.name}")
 
@@ -33,10 +33,14 @@ class Cities(City):
     self.cities_list = []
     add_city = self.add_city
 
-    add_city(City(player, name='fes', indexes=[1, 3]))
-    add_city(City(player, name='marrakech', indexes=[6, 8, 9]))
-    add_city(City(player, name='chefchaouen', indexes=[11, 13, 14]))
-    add_city(City(player, name='tetouan', indexes=[16, 18, 19]))
+    add_city(City(player, name='chefchaouen', indexes=[1, 3]))
+    add_city(City(player, name='tetouan', indexes=[6, 8, 9]))
+    add_city(City(player, name='fes', indexes=[11, 13, 14]))
+    add_city(City(player, name='meknes', indexes=[16, 18, 19]))
+    add_city(City(player, name='beni mellal', indexes=[21, 23, 24]))
+    add_city(City(player, name='marrakech', indexes=[26, 27, 29]))
+    add_city(City(player, name='essaouira', indexes=[31, 32, 34]))
+    add_city(City(player, name='casablanca', indexes=[37, 39]))
 
   def add_city(self, city):
     self.cities_list.append(city)

@@ -1,8 +1,10 @@
 import pygame as pg
 from random import randint
+from time import sleep
+
 from cities import Cities
 from settings import *
-from time import sleep
+from rules import rules_list
 
 class Player:
   def __init__(self, game) -> None:
@@ -13,8 +15,6 @@ class Player:
     self.x, self.y = 25, 25
     self.current_index = 0
     self.size = 20
-
-    self.cities = Cities(self)
 
   def check_screen_collision(self, dx, dy):
     # solved by chat gpt
@@ -42,7 +42,9 @@ class Player:
   def play(self):
     click = pg.key.get_pressed()[pg.K_SPACE]
     if click:
-      index = randint(1, 6)
+      first_index = randint(1, 6)
+      second_index = randint(1, 6)
+      index = first_index + second_index
       sleep(0.5)
       
     try:
@@ -52,6 +54,7 @@ class Player:
       print(self.current_index, index)
 
     except UnboundLocalError:
+      # now only God knows -why I did this
       self.current_index += 0
 
     n, m = positions[self.current_index]
@@ -62,3 +65,13 @@ class Player:
     
   def draw(self):
     pg.draw.circle(self.game.screen, self.color, (self.x, self.y), self.size)
+
+class GamePlayer(Player):
+  def __init__(self, game) -> None:
+    super().__init__(game)
+    self.cities = Cities(self)
+    self.current_money = 1500
+    
+  def update(self):
+    super().update()
+    rules_list[self.current_index](self) # can't continue the work without this line: the rules list must be finished so we don't get IndexError
