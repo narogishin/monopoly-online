@@ -2,6 +2,7 @@ from settings import *
 from player import GamePlayer
 from screen import Screen
 from client import Client
+from threading import Thread
 import pygame as pg
 import sys
 
@@ -10,14 +11,18 @@ class Game:
     self.screen = pg.display.set_mode(RESOLUTION)
     self.clock = pg.time.Clock()
     self.new_game()
-
+    
   def new_game(self):
     self.player = GamePlayer(self)
     self.board = Screen(self)
+    # self.global_thread = Thread(target=self.start_game)
+    self.player_thread = Thread(target=self.player.update)
+    self.player_thread.start()
     # self.client = Client(self)
 
   def update(self):
-    self.player.update()
+    self.player_thread.join()
+    # self.player.update()
     # self.client.update()
     pg.display.set_caption(f'Moroccan Monopoly : {self.clock.get_fps() :.1f}')
     pg.display.flip()
@@ -41,6 +46,7 @@ class Game:
       self.check_event()
       self.update()
       self.draw()
+
 
 if __name__ == '__main__':
   game = Game()

@@ -9,12 +9,15 @@ from rules import rules_list
 class Player:
   def __init__(self, game) -> None:
     self.game = game
-    self.name = names[randint(0, len(names)-1)]
-    self.color = colors[randint(0, len(colors)-1)]
     self.players_list = []
     self.x, self.y = 25, 25
     self.current_index = 0
+    self.last_index = 0
     self.size = 20
+    self.owned_cities = []
+
+  def __str__(self):
+    return f"Player {self.name} is at {self.current_index}"
 
   def check_screen_collision(self, dx, dy):
     # solved by chat gpt
@@ -50,7 +53,7 @@ class Player:
     try:
       self.current_index += index
       self.current_index %= 40
-      self.cities.update()
+      # self.cities.update()
       print(self.current_index, index)
 
     except UnboundLocalError:
@@ -66,12 +69,17 @@ class Player:
   def draw(self):
     pg.draw.circle(self.game.screen, self.color, (self.x, self.y), self.size)
 
+
 class GamePlayer(Player):
   def __init__(self, game) -> None:
     super().__init__(game)
-    self.cities = Cities(self)
-    self.current_money = 1500
+    # self.cities = CityWrapper(self)
+    self.name = names[randint(0, len(names)-1)]
+    self.color = colors[randint(0, len(colors)-1)]
+    self.current_money = PLAYER_BUDGET
     
   def update(self):
     super().update()
-    rules_list[self.current_index](self) # can't continue the work without this line: the rules list must be finished so we don't get IndexError
+    rules_list[self.current_index](game_player = self)
+    self.last_index = self.current_index
+    print(f"Player {self.name} was at {self.last_index} and now in ${self.current_money}")
